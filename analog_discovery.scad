@@ -20,7 +20,7 @@ adapter_h = 24.5;
 
 wall_thickness = 2;
 
-radius = 0;
+radius = 5;
 
 module discovery(l, w, h, thickness, radius) {
 		difference(){
