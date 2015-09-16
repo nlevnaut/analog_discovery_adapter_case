@@ -94,7 +94,7 @@ module adapter(l, w, h1, h2, thickness) {
 
 		// Hole for header
 		translate([-(adapter_l/2),0,1.5]) {
-			cube([10,adapter_w-20,5], true);
+			cube([10,39,5], true);
 		}
 	}
 	// Pegs to replace the headers originally on the adapter for placement
