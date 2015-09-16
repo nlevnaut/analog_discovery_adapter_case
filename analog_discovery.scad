@@ -31,6 +31,12 @@ module discovery(l, w, h, thickness, radius) {
 				cube([l, w, h], true);
 				cylinder(r=radius, h=26);
 			}
+			translate([(digilent_l/2 + thickness/2 + radius),-19,-1.25]) {
+				cube([thickness*2 + 1,12.5, 7.5], true);
+			}
+			translate([(digilent_l/2 + thickness/2 + radius),20,0]) {
+				rotate([0,90,0]) cylinder(r=3.5, h=(thickness*2 + 1), center=true);
+			}
 		}
 }
 
@@ -38,8 +44,8 @@ module adapter(l, w, h1, h2, thickness) {
 	bnc_spread = 21.5/2;
 	bnc_height=19;
 	bnc_radius=6;
-	peg_x_offset=7;
-	peg_y_offset=7;
+	peg_x_offset=25;
+	peg_y_offset=25;
 	difference(){
 		cube([(l + thickness),
 			(w + thickness),
@@ -92,20 +98,20 @@ module adapter(l, w, h1, h2, thickness) {
 		}
 	}
 	// Pegs to replace the headers originally on the adapter for placement
-	translate([(adapter_l/2 - peg_x_offset),(adapter_w/2 - peg_y_offset), -digilent_h/2]) {
-		cylinder(r=1.25, h=adapter_h/2);
+	translate([(peg_x_offset),(peg_y_offset), -digilent_h/2]) {
+		cylinder(r=1.5, h=adapter_h/2);
 		cylinder(r=2, h=(adapter_h/2 - 3));
 	}
-	translate([-(adapter_l/2 - peg_x_offset),(adapter_w/2 - peg_y_offset), -digilent_h/2]) {
-		cylinder(r=1.25, h=adapter_h/2);
+	translate([-(peg_x_offset),(peg_y_offset), -digilent_h/2]) {
+		cylinder(r=1.5, h=adapter_h/2);
 		cylinder(r=2, h=(adapter_h/2 - 3));
 	}
-	translate([(adapter_l/2 - peg_x_offset),-(adapter_w/2 - peg_y_offset), -digilent_h/2]) {
-		cylinder(r=1.25, h=adapter_h/2);
+	translate([(peg_x_offset),-(peg_y_offset), -digilent_h/2]) {
+		cylinder(r=1.5, h=adapter_h/2);
 		cylinder(r=2, h=(adapter_h/2 - 3));
 	}
-	translate([-(adapter_l/2 - peg_x_offset),-(adapter_w/2 - peg_y_offset), -digilent_h/2]) {
-		cylinder(r=1.25, h=adapter_h/2);
+	translate([-(peg_x_offset),-(peg_y_offset), -digilent_h/2]) {
+		cylinder(r=1.5, h=adapter_h/2);
 		cylinder(r=2, h=(adapter_h/2 - 3));
 	}
 }
