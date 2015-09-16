@@ -58,6 +58,7 @@ module adapter(l, w, h1, h2, thickness) {
 				   rotate([90,0,0])cylinder(r=bnc_radius, h=thickness+1, center=true);
 			}
 		}
+
 		hull(){
 			translate([-bnc_spread, w/2, bnc_radius]){
 				rotate([90,0,0])cylinder(r=bnc_radius, h=thickness+1, center=true);
@@ -66,6 +67,7 @@ module adapter(l, w, h1, h2, thickness) {
 				rotate([90,0,0])cylinder(r=bnc_radius, h=thickness+1, center=true);
 			}
 		}
+
 		hull(){
 			translate([bnc_spread, -w/2, bnc_radius]){
 				rotate([90,0,0])cylinder(r=bnc_radius, h=thickness+1, center=true);
@@ -74,6 +76,7 @@ module adapter(l, w, h1, h2, thickness) {
 				rotate([90,0,0])cylinder(r=bnc_radius, h=thickness+1, center=true);
 			}
 		}
+
 		hull(){
 			translate([-bnc_spread, -w/2, bnc_radius]){
 				rotate([90,0,0])cylinder(r=bnc_radius, h=thickness+1, center=true);
@@ -82,28 +85,34 @@ module adapter(l, w, h1, h2, thickness) {
 				rotate([90,0,0])cylinder(r=bnc_radius, h=thickness+1, center=true);
 			}
 		}
+
+		// Hole for header
+		translate([-(adapter_l/2),0,1.5]) {
+			cube([10,adapter_w-20,5], true);
+		}
 	}
 	// Pegs to replace the headers originally on the adapter for placement
 	translate([(adapter_l/2 - peg_x_offset),(adapter_w/2 - peg_y_offset), -digilent_h/2]) {
 		cylinder(r=1.25, h=adapter_h/2);
-		cylinder(r=2, h=(adapter_h/2 - 2));
+		cylinder(r=2, h=(adapter_h/2 - 3));
 	}
 	translate([-(adapter_l/2 - peg_x_offset),(adapter_w/2 - peg_y_offset), -digilent_h/2]) {
 		cylinder(r=1.25, h=adapter_h/2);
-		cylinder(r=2, h=(adapter_h/2 - 2));
+		cylinder(r=2, h=(adapter_h/2 - 3));
 	}
 	translate([(adapter_l/2 - peg_x_offset),-(adapter_w/2 - peg_y_offset), -digilent_h/2]) {
 		cylinder(r=1.25, h=adapter_h/2);
-		cylinder(r=2, h=(adapter_h/2 - 2));
+		cylinder(r=2, h=(adapter_h/2 - 3));
 	}
 	translate([-(adapter_l/2 - peg_x_offset),-(adapter_w/2 - peg_y_offset), -digilent_h/2]) {
 		cylinder(r=1.25, h=adapter_h/2);
-		cylinder(r=2, h=(adapter_h/2 - 2));
+		cylinder(r=2, h=(adapter_h/2 - 3));
 	}
 }
 
-//Remove wall between both sections of the case.
+// Remove wall between both sections of the case.
 difference(){
+	// Main compartments of the case.
 	union(){
 		translate([(adapter_l + radius + wall_thickness)/2, 0, 0]) {
 			discovery(digilent_l, digilent_w, digilent_h, wall_thickness, radius);
@@ -113,6 +122,8 @@ difference(){
 			adapter(adapter_l, adapter_w, digilent_h, adapter_h, wall_thickness);
 		}
 	}
+
+	// Wall segment to remove
 	translate([(adapter_l-digilent_l)/2, 0, wall_thickness*2]) {
 		cube([wall_thickness*2, adapter_l-radius+wall_thickness, adapter_h], true);
 	}
