@@ -85,16 +85,20 @@ module adapter(l, w, h1, h2, thickness) {
 	}
 	// Pegs to replace the headers originally on the adapter for placement
 	translate([(adapter_l/2 - peg_x_offset),(adapter_w/2 - peg_y_offset), -digilent_h/2]) {
-		cylinder(r=1.5, h=adapter_h/2);
+		cylinder(r=1.25, h=adapter_h/2);
+		cylinder(r=2, h=(adapter_h/2 - 2));
 	}
 	translate([-(adapter_l/2 - peg_x_offset),(adapter_w/2 - peg_y_offset), -digilent_h/2]) {
-		cylinder(r=1.5, h=adapter_h/2);
+		cylinder(r=1.25, h=adapter_h/2);
+		cylinder(r=2, h=(adapter_h/2 - 2));
 	}
 	translate([(adapter_l/2 - peg_x_offset),-(adapter_w/2 - peg_y_offset), -digilent_h/2]) {
-		cylinder(r=1.5, h=adapter_h/2);
+		cylinder(r=1.25, h=adapter_h/2);
+		cylinder(r=2, h=(adapter_h/2 - 2));
 	}
 	translate([-(adapter_l/2 - peg_x_offset),-(adapter_w/2 - peg_y_offset), -digilent_h/2]) {
-		cylinder(r=1.5, h=adapter_h/2);
+		cylinder(r=1.25, h=adapter_h/2);
+		cylinder(r=2, h=(adapter_h/2 - 2));
 	}
 }
 
