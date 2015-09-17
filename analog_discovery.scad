@@ -1,3 +1,4 @@
+$fn = 30;
 digilent_l = 84;
 digilent_w = 68.2;
 digilent_h = 20.6;
