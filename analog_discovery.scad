@@ -1,15 +1,3 @@
-module fillet(r, h) {
-	translate([r / 2, r / 2, 0])
-
-		difference() {
-			cube([r + 0.01, r + 0.01, h], center = true);
-
-			translate([r/2, r/2, 0])
-				cylinder(r = r, h = h + 1, center = true);
-
-		}
-}
-
 digilent_l = 84;
 digilent_w = 68.2;
 digilent_h = 20.6;
@@ -22,6 +10,15 @@ wall_thickness = 2;
 
 radius = 3;
 
+module vent() {
+	rotate([0,90,0]) {
+		hull() {
+			cylinder(r=1.1, h=wall_thickness*2 + 1, center=true);
+			translate([10, 0, 0]) cylinder(r=1.1, h=wall_thickness*2 + 1, center=true);
+		}
+	}
+}
+
 module discovery(l, w, h, thickness, radius) {
 		difference(){
 			cube([(l + radius*2 + thickness),
@@ -31,12 +28,22 @@ module discovery(l, w, h, thickness, radius) {
 				cube([l, w, h], true);
 				cylinder(r=radius, h=26);
 			}
+			// Hole for USB
 			translate([(digilent_l/2 + thickness/2 + radius),-19,-1.25]) {
 				cube([thickness*2 + 1,12.5, 7.5], true);
 			}
+			// Hole for 3.5mm jack
 			translate([(digilent_l/2 + thickness/2 + radius),20,0]) {
 				rotate([0,90,0]) cylinder(r=3.5, h=(thickness*2 + 1), center=true);
 			}
+			// Holes for vents
+			translate([(digilent_l/2 + thickness/2 + radius),-10, 5]) vent();
+			translate([(digilent_l/2 + thickness/2 + radius),-6, 5]) vent();
+			translate([(digilent_l/2 + thickness/2 + radius), -2, 5]) vent();
+			translate([(digilent_l/2 + thickness/2 + radius), 2, 5]) vent();
+			translate([(digilent_l/2 + thickness/2 + radius), 6, 5]) vent();
+			translate([(digilent_l/2 + thickness/2 + radius), 10, 5]) vent();
+			translate([(digilent_l/2 + thickness/2 + radius), 14, 5]) vent();
 		}
 }
 
