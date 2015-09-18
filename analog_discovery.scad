@@ -1,10 +1,10 @@
 $fn = 30;
-digilent_l = 84;
-digilent_w = 68.2;
+digilent_l = 80;
+digilent_w = 64.2;
 digilent_h = 20.6;
 
-adapter_l = 60.2;
-adapter_w = 59.5;
+adapter_l = 61.2;
+adapter_w = 60.5;
 adapter_h = 24.5;
 
 wall_thickness = 2;
@@ -30,11 +30,11 @@ module discovery(l, w, h, thickness, radius) {
 				cylinder(r=radius, h=26);
 			}
 			// Hole for USB
-			translate([(digilent_l/2 + thickness/2 + radius),-19,-1.25]) {
+			translate([(digilent_l/2 + thickness/2 + radius),-19,-0.5]) {
 				cube([thickness*2 + 1,12.5, 7.5], true);
 			}
 			// Hole for 3.5mm jack
-			translate([(digilent_l/2 + thickness/2 + radius),20,0]) {
+			translate([(digilent_l/2 + thickness/2 + radius),20,0.5]) {
 				rotate([0,90,0]) cylinder(r=3.5, h=(thickness*2 + 1), center=true);
 			}
 			// Holes for vents
@@ -51,7 +51,7 @@ module discovery(l, w, h, thickness, radius) {
 module adapter(l, w, h1, h2, thickness) {
 	bnc_spread = 21.5/2;
 	bnc_height=19;
-	bnc_radius=6;
+	bnc_radius=6.5;
 	peg_x_offset=25;
 	peg_y_offset=25;
 	difference(){
@@ -101,8 +101,8 @@ module adapter(l, w, h1, h2, thickness) {
 		}
 
 		// Hole for header
-		translate([-(adapter_l/2),0,1.5]) {
-			cube([10,39,5], true);
+		translate([-(adapter_l/2),0,7]) {
+			cube([10,39,15], true);
 		}
 	}
 	// Pegs to replace the headers originally on the adapter for placement
