@@ -1,6 +1,6 @@
 $fn = 30;
-digilent_l = 80;
-digilent_w = 64.2;
+digilent_l = 81;
+digilent_w = 65.2;
 digilent_h = 20.6;
 
 adapter_l = 61.2;
