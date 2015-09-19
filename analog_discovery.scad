@@ -1,9 +1,9 @@
 $fn = 30;
-digilent_l = 81;
-digilent_w = 65.2;
+digilent_l = 79;
+digilent_w = 63.2;
 digilent_h = 20.6;
 
-adapter_l = 61.2;
+adapter_l = 60.3;
 adapter_w = 60.5;
 adapter_h = 24.5;
 
@@ -30,21 +30,20 @@ module discovery(l, w, h, thickness, radius) {
 				cylinder(r=radius, h=26);
 			}
 			// Hole for USB
-			translate([(digilent_l/2 + thickness/2 + radius),-19,0]) {
+			translate([(digilent_l/2 + thickness/2 + radius),-19,0.5]) {
 				cube([thickness*2 + 1,12.5, 7.5], true);
 			}
 			// Hole for 3.5mm jack
-			translate([(digilent_l/2 + thickness/2 + radius),20,0.5]) {
+			translate([(digilent_l/2 + thickness/2 + radius),22,1]) {
 				rotate([0,90,0]) cylinder(r=3.5, h=(thickness*2 + 1), center=true);
 			}
 			// Holes for vents
-			translate([(digilent_l/2 + thickness/2 + radius),-10, 5]) vent();
-			translate([(digilent_l/2 + thickness/2 + radius),-6, 5]) vent();
-			translate([(digilent_l/2 + thickness/2 + radius), -2, 5]) vent();
-			translate([(digilent_l/2 + thickness/2 + radius), 2, 5]) vent();
+			translate([(digilent_l/2 + thickness/2 + radius),-9, 5]) vent();
+			translate([(digilent_l/2 + thickness/2 + radius), -4, 5]) vent();
+			translate([(digilent_l/2 + thickness/2 + radius), 1, 5]) vent();
 			translate([(digilent_l/2 + thickness/2 + radius), 6, 5]) vent();
-			translate([(digilent_l/2 + thickness/2 + radius), 10, 5]) vent();
-			translate([(digilent_l/2 + thickness/2 + radius), 14, 5]) vent();
+			translate([(digilent_l/2 + thickness/2 + radius), 11, 5]) vent();
+			translate([(digilent_l/2 + thickness/2 + radius), 16, 5]) vent();
 		}
 }
 
@@ -52,8 +51,8 @@ module adapter(l, w, h1, h2, thickness) {
 	bnc_spread = 21.5/2;
 	bnc_height=19;
 	bnc_radius=6.5;
-	peg_x_offset=25;
-	peg_y_offset=25;
+	peg_x_offset=25.5;
+	peg_y_offset=25.5;
 	difference(){
 		cube([(l + thickness),
 			(w + thickness),
@@ -107,19 +106,19 @@ module adapter(l, w, h1, h2, thickness) {
 	}
 	// Pegs to replace the headers originally on the adapter for placement
 	translate([(peg_x_offset),(peg_y_offset), -digilent_h/2]) {
-		cylinder(r=1.5, h=adapter_h/2);
+		cylinder(r=1.2, h=adapter_h/2);
 		cylinder(r=2.5, h=(adapter_h/2 - 3));
 	}
 	translate([-(peg_x_offset),(peg_y_offset), -digilent_h/2]) {
-		cylinder(r=1.5, h=adapter_h/2);
+		cylinder(r=1.2, h=adapter_h/2);
 		cylinder(r=2.5, h=(adapter_h/2 - 3));
 	}
 	translate([(peg_x_offset),-(peg_y_offset), -digilent_h/2]) {
-		cylinder(r=1.5, h=adapter_h/2);
+		cylinder(r=1.2, h=adapter_h/2);
 		cylinder(r=2.5, h=(adapter_h/2 - 3));
 	}
 	translate([-(peg_x_offset),-(peg_y_offset), -digilent_h/2]) {
-		cylinder(r=1.5, h=adapter_h/2);
+		cylinder(r=1.2, h=adapter_h/2);
 		cylinder(r=2.5, h=(adapter_h/2 - 3));
 	}
 }
