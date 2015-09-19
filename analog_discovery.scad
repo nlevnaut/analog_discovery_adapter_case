@@ -7,7 +7,7 @@ adapter_l = 61.2;
 adapter_w = 60.5;
 adapter_h = 24.5;
 
-wall_thickness = 2;
+wall_thickness = 3;
 
 radius = 3;
 
@@ -30,7 +30,7 @@ module discovery(l, w, h, thickness, radius) {
 				cylinder(r=radius, h=26);
 			}
 			// Hole for USB
-			translate([(digilent_l/2 + thickness/2 + radius),-19,-0.5]) {
+			translate([(digilent_l/2 + thickness/2 + radius),-19,0]) {
 				cube([thickness*2 + 1,12.5, 7.5], true);
 			}
 			// Hole for 3.5mm jack
@@ -108,19 +108,19 @@ module adapter(l, w, h1, h2, thickness) {
 	// Pegs to replace the headers originally on the adapter for placement
 	translate([(peg_x_offset),(peg_y_offset), -digilent_h/2]) {
 		cylinder(r=1.5, h=adapter_h/2);
-		cylinder(r=2, h=(adapter_h/2 - 3));
+		cylinder(r=2.5, h=(adapter_h/2 - 3));
 	}
 	translate([-(peg_x_offset),(peg_y_offset), -digilent_h/2]) {
 		cylinder(r=1.5, h=adapter_h/2);
-		cylinder(r=2, h=(adapter_h/2 - 3));
+		cylinder(r=2.5, h=(adapter_h/2 - 3));
 	}
 	translate([(peg_x_offset),-(peg_y_offset), -digilent_h/2]) {
 		cylinder(r=1.5, h=adapter_h/2);
-		cylinder(r=2, h=(adapter_h/2 - 3));
+		cylinder(r=2.5, h=(adapter_h/2 - 3));
 	}
 	translate([-(peg_x_offset),-(peg_y_offset), -digilent_h/2]) {
 		cylinder(r=1.5, h=adapter_h/2);
-		cylinder(r=2, h=(adapter_h/2 - 3));
+		cylinder(r=2.5, h=(adapter_h/2 - 3));
 	}
 }
 
@@ -139,6 +139,6 @@ difference(){
 
 	// Wall segment to remove
 	translate([(adapter_l-digilent_l)/2, 0, wall_thickness*2]) {
-		cube([wall_thickness*2, adapter_l-radius+wall_thickness, adapter_h], true);
+		cube([wall_thickness*2, adapter_w-radius+wall_thickness, adapter_h], true);
 	}
 }
