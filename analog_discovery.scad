@@ -1,9 +1,9 @@
-$fn = 30;
+$fn = 20;
 digilent_l = 79;
 digilent_w = 63.2;
 digilent_h = 20.6;
 
-adapter_l = 60.3;
+adapter_l = 60.1;
 adapter_w = 60.5;
 adapter_h = 24.5;
 
@@ -25,7 +25,7 @@ module discovery(l, w, h, thickness, radius) {
 			cube([(l + radius*2 + thickness),
 				(w + radius*2 + thickness),
 				(h + thickness)], true);
-			translate([0,0,thickness])minkowski() {
+			translate([0,0,thickness-3])minkowski() {
 				cube([l, w, h], true);
 				cylinder(r=radius, h=26);
 			}
@@ -50,7 +50,7 @@ module discovery(l, w, h, thickness, radius) {
 module adapter(l, w, h1, h2, thickness) {
 	bnc_spread = 21.5/2;
 	bnc_height=19;
-	bnc_radius=6.5;
+	bnc_radius=6.8;
 	peg_x_offset=25.5;
 	peg_y_offset=25.5;
 	difference(){
@@ -58,8 +58,9 @@ module adapter(l, w, h1, h2, thickness) {
 			(w + thickness),
 			(h1 + thickness)], true);
 
-		translate([0,0,thickness]) {
-			cube([l, w, h1], true);
+		// thickness-2 is used because prints were too thick on the bottom.
+		translate([0,0,thickness-2]) {
+			cube([l, w, h1+2], true);
 		}
 
 		// Holes for BNC connectors
@@ -100,26 +101,26 @@ module adapter(l, w, h1, h2, thickness) {
 		}
 
 		// Hole for header
-		translate([-(adapter_l/2),0,7]) {
+		translate([-(adapter_l/2),0,6.3]) {
 			cube([10,39,15], true);
 		}
 	}
 	// Pegs to replace the headers originally on the adapter for placement
 	translate([(peg_x_offset),(peg_y_offset), -digilent_h/2]) {
-		cylinder(r=1.2, h=adapter_h/2);
-		cylinder(r=2.5, h=(adapter_h/2 - 3));
+		cylinder(r=1.2, h=adapter_h/2, $fn=7);
+		cylinder(r=2.5, h=(adapter_h/2 - 3), $fn=7);
 	}
 	translate([-(peg_x_offset),(peg_y_offset), -digilent_h/2]) {
-		cylinder(r=1.2, h=adapter_h/2);
-		cylinder(r=2.5, h=(adapter_h/2 - 3));
+		cylinder(r=1.2, h=adapter_h/2, $fn=7);
+		cylinder(r=2.5, h=(adapter_h/2 - 3), $fn=7);
 	}
 	translate([(peg_x_offset),-(peg_y_offset), -digilent_h/2]) {
-		cylinder(r=1.2, h=adapter_h/2);
-		cylinder(r=2.5, h=(adapter_h/2 - 3));
+		cylinder(r=1.2, h=(adapter_h/2 - 1.5), $fn=7);
+		cylinder(r=2.5, h=(adapter_h/2 - 4.5), $fn=7);
 	}
 	translate([-(peg_x_offset),-(peg_y_offset), -digilent_h/2]) {
-		cylinder(r=1.2, h=adapter_h/2);
-		cylinder(r=2.5, h=(adapter_h/2 - 3));
+		cylinder(r=1.2, h=adapter_h/2, $fn=7);
+		cylinder(r=2.5, h=(adapter_h/2 - 3), $fn=7);
 	}
 }
 
@@ -138,6 +139,6 @@ difference(){
 
 	// Wall segment to remove
 	translate([(adapter_l-digilent_l)/2, 0, wall_thickness*2]) {
-		cube([wall_thickness*2, adapter_w-radius+wall_thickness, adapter_h], true);
+		cube([wall_thickness*2, adapter_w-radius+wall_thickness, adapter_h+4], true);
 	}
 }
