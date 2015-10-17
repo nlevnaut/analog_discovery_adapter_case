@@ -20,8 +20,42 @@ module vent() {
 	}
 }
 
+// Trapezoid for usb connector support
 module trapezoid(width_base, width_top,height,thickness) {
   linear_extrude(height = thickness) polygon(points=[[0,0],[width_base,0],[width_base-(width_base-width_top)/2,height],[(width_base-width_top)/2,height]], paths=[[0,1,2,3]]); 
+}
+
+module lid(l1, l2, w1, w2, h1, h2, t, r) {
+	difference() {
+		union() {
+			translate([(digilent_l/2 - wall_thickness - radius),0,0]) {
+				difference(){
+					cube([(l1 + r*2 + t*2 + 1),
+						(w1 + r*2 + t*2 + 1),
+						(h1/3 + 1)], true);
+					translate([0,0,t-6]) {
+						cube([l1+r*2+t+1, w1+r*2+t+1, h1/3], true);
+					}
+				}
+			}
+			translate([-(digilent_l+radius)/2,0, 0]) {
+				difference(){
+					cube([(l2 + t*2 + 1),
+						(w2 + t*2 + 1),
+						(h1/3 + 1)], true);
+					translate([0,0,t-6]) {
+						cube([l2+t+1, w2+t+1, h1/3], true);
+					}
+				}
+			}
+		}
+		translate([(l2-l1)/2+t/2-0.05, 0, -t+0.43]) {
+			cube([t*2, w2+r+t*2, 2*t], true);
+		}
+		translate([(l2-l1)/2+t/2-3, 0, -t+0.43]) {
+			cube([t*2, w2 + t + 1, 2*t], true);
+		}
+	}
 }
 
 module discovery(l, w, h, thickness, radius) {
@@ -48,7 +82,21 @@ module discovery(l, w, h, thickness, radius) {
 		translate([(digilent_l/2 + thickness/2 + radius), 10, 5]) vent();
 		translate([(digilent_l/2 + thickness/2 + radius), 15, 5]) vent();
 	}
+
+	// USB connector support
 	translate([(digilent_l/2 + thickness/2 + radius), -8, -10]) rotate([0,0,-90]) trapezoid(22, 15, 20, 5);
+
+	// Hooks for lid
+	translate([(digilent_l/2 + thickness + radius + 2), -28.5, -8.5]) {
+		rotate([75,0,9.9]) {
+			linear_extrude(height=1) square([10,3], center=true);
+		}
+	}
+	translate([(digilent_l/2 + thickness + radius + 2), -9.5, -8.5]) {
+		rotate([-75,0,-9.9]) {
+			linear_extrude(height=1) square([10,3], center=true);
+		}
+	}
 }
 
 module adapter(l, w, h1, h2, thickness) {
@@ -146,3 +194,13 @@ difference(){
 		cube([wall_thickness*2, adapter_w-radius+wall_thickness, adapter_h+4], true);
 	}
 }
+
+// The lid
+lid_l1 = digilent_l;
+lid_l2 = adapter_l;
+lid_h1 = digilent_h;
+lid_h2 = 2;
+lid_w1 = digilent_w;
+lid_w2 = adapter_w;
+
+translate([0,0,30]) lid(lid_l1, lid_l2, lid_w1, lid_w2, lid_h1, lid_h2, wall_thickness, radius);
