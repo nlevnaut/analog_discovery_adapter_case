@@ -35,7 +35,7 @@ module discovery(l, w, h, thickness, radius) {
 		}
 		// Hole for USB
 		translate([(digilent_l/2 + thickness/2 + radius),-19,0]) {
-			cube([thickness*2 + 1,12.5, 9], true);
+			cube([thickness*2 + 1,13, 9], true);
 		}
 		// Hole for 3.5mm jack
 		translate([(digilent_l/2 + thickness/2 + radius),22,1]) {
