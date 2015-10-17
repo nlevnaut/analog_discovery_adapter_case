@@ -20,31 +20,35 @@ module vent() {
 	}
 }
 
+module trapezoid(width_base, width_top,height,thickness) {
+  linear_extrude(height = thickness) polygon(points=[[0,0],[width_base,0],[width_base-(width_base-width_top)/2,height],[(width_base-width_top)/2,height]], paths=[[0,1,2,3]]); 
+}
+
 module discovery(l, w, h, thickness, radius) {
-		difference(){
-			cube([(l + radius*2 + thickness),
-				(w + radius*2 + thickness),
-				(h + thickness)], true);
-			translate([0,0,thickness-3])minkowski() {
-				cube([l, w, h], true);
-				cylinder(r=radius, h=26);
-			}
-			// Hole for USB
-			translate([(digilent_l/2 + thickness/2 + radius),-19,0.5]) {
-				cube([thickness*2 + 1,12.5, 7.5], true);
-			}
-			// Hole for 3.5mm jack
-			translate([(digilent_l/2 + thickness/2 + radius),22,1]) {
-				rotate([0,90,0]) cylinder(r=3.5, h=(thickness*2 + 1), center=true);
-			}
-			// Holes for vents
-			translate([(digilent_l/2 + thickness/2 + radius),-9, 5]) vent();
-			translate([(digilent_l/2 + thickness/2 + radius), -4, 5]) vent();
-			translate([(digilent_l/2 + thickness/2 + radius), 1, 5]) vent();
-			translate([(digilent_l/2 + thickness/2 + radius), 6, 5]) vent();
-			translate([(digilent_l/2 + thickness/2 + radius), 11, 5]) vent();
-			translate([(digilent_l/2 + thickness/2 + radius), 16, 5]) vent();
+	difference(){
+		cube([(l + radius*2 + thickness),
+			(w + radius*2 + thickness),
+			(h + thickness)], true);
+		translate([0,0,thickness-3])minkowski() {
+			cube([l, w, h], true);
+			cylinder(r=radius, h=26);
 		}
+		// Hole for USB
+		translate([(digilent_l/2 + thickness/2 + radius),-19,0]) {
+			cube([thickness*2 + 1,12.5, 9], true);
+		}
+		// Hole for 3.5mm jack
+		translate([(digilent_l/2 + thickness/2 + radius),22,1]) {
+			rotate([0,90,0]) cylinder(r=4, h=(thickness*2 + 1), center=true);
+		}
+		// Holes for vents
+		translate([(digilent_l/2 + thickness/2 + radius), -5, 5]) vent();
+		translate([(digilent_l/2 + thickness/2 + radius), 0, 5]) vent();
+		translate([(digilent_l/2 + thickness/2 + radius), 5, 5]) vent();
+		translate([(digilent_l/2 + thickness/2 + radius), 10, 5]) vent();
+		translate([(digilent_l/2 + thickness/2 + radius), 15, 5]) vent();
+	}
+	translate([(digilent_l/2 + thickness/2 + radius), -8, -10]) rotate([0,0,-90]) trapezoid(22, 15, 20, 5);
 }
 
 module adapter(l, w, h1, h2, thickness) {
